@@ -20,12 +20,30 @@
   grid-area: button;
 }
 
+.profile__edit-button:hover {
+  background: transparent url(../images/edit-hover.png) center no-repeat;
+  height: 24px;
+  width: 24px;
+  border: none;
+  grid-area: button;
+  transition: 0.3s ease-in-out;
+}
+
 .profile__add-button {
   background: transparent url(../images/add.png) center no-repeat;
   height: 50px;
   width: 150px;
   margin-left: auto;
   border: none;
+}
+
+.profile__add-button:hover {
+  background: transparent url(../images//add-hover.png) center no-repeat;
+  height: 50px;
+  width: 150px;
+  margin-left: auto;
+  border: none;
+  transition: 0.3s ease-in-out;
 }
 
 .profile__title {

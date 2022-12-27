@@ -5,7 +5,7 @@
   margin-top: 30px;
 }
 
-.card__list {
+.cards__list {
   list-style: none;
   display: grid;
   justify-content: center;
