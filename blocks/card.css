@@ -19,7 +19,7 @@
   border-radius: 10px;
 }
 
-.card__description_name {
+.card__description-name {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
