@@ -7,7 +7,6 @@
 }
 
 .footer__copywright {
-  height: 18px;
   max-width: 318px;
   font-family: "Inter", sans-serif;
   font-weight: 400;
@@ -26,7 +25,6 @@
   }
 
   .footer__copywright {
-    height: 14px;
     max-width: 282px;
     margin: 0px;
     line-height: 17px;
