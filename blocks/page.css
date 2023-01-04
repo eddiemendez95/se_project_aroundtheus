@@ -24,11 +24,3 @@
     display: flex;
   }
 }
-
-@media screen and (max-width: 500px) {
-  .page {
-    margin: 0px;
-    justify-content: center;
-    display: flex;
-  }
-}

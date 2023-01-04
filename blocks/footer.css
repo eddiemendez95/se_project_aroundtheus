@@ -30,18 +30,3 @@
     padding: 0px;
   }
 }
-
-@media screen and (max-width: 500px) {
-  .footer {
-    padding: 48px 19px 36px;
-    max-width: 282px;
-    margin: 0px;
-  }
-
-  .footer__copywright {
-    max-width: 282px;
-    line-height: 17px;
-    font-size: 14px;
-    padding: 0px;
-  }
-}
