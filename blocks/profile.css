@@ -130,13 +130,7 @@
     padding: 0px;
     margin-top: 05px;
   }
-  .profile__title {
-    font-size: 22px;
-    line-height: 26px;
-    margin-right: 10px;
-    margin-bottom: 14px;
-  }
-}
+  
 
 @media screen and (max-width: 500px) {
   .profile {
@@ -164,7 +158,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 500px;
+    max-width: 282px;
   }
 
   .profile__description {
@@ -175,7 +169,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 500px;
+    max-width: 282px;
   }
   .profile__add-button {
     background: transparent url(../images/add-mobile.svg) center no-repeat;
