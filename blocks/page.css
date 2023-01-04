@@ -17,6 +17,14 @@
   margin: 0 auto;
 }
 
+@media screen and (max-width: 900px) {
+  .page {
+    margin: 0px;
+    justify-content: center;
+    display: flex;
+  }
+}
+
 @media screen and (max-width: 500px) {
   .page {
     margin: 0px;

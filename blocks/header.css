@@ -7,6 +7,19 @@
   margin-bottom: 41px;
 }
 
+@media screen and (max-width: 900px) {
+  .header {
+    margin-top: 26px;
+    width: 100%;
+  }
+  .header__image {
+    max-width: 126px;
+    height: auto;
+    margin-left: 27px;
+    margin-bottom: 32px;
+  }
+}
+
 @media screen and (max-width: 500px) {
   .header {
     margin-top: 26px;
