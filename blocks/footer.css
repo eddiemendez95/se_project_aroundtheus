@@ -13,9 +13,10 @@
   line-height: 22px;
   font-size: 18px;
   color: #545454;
+  margin: 0px;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
   .footer {
     padding: 48px 19px 36px;
     max-width: 282px;
@@ -26,7 +27,6 @@
 
   .footer__copywright {
     max-width: 282px;
-    margin: 0px;
     line-height: 17px;
     font-size: 14px;
     padding: 0px;

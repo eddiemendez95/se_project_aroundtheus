@@ -1,8 +1,5 @@
 .cards {
-  font-family: "Inter", sans-serif;
-  font-weight: 900;
-  line-height: 29px;
-  margin-top: 30px;
+  margin-top: 47.25px;
 }
 
 .cards__list {
@@ -15,7 +12,7 @@
   margin: 0;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
   .cards {
     padding: 0px 19px;
     max-width: 282px;
