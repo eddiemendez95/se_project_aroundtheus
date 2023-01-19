@@ -12,7 +12,7 @@
   display: none;
 }
 
-.modal__opened {
+.modal_opened {
   display: flex;
 }
 
@@ -74,4 +74,26 @@
   border-right: none;
   font-family: "Inter", sans-serif;
   font-size: 14px;
+}
+
+@media screen and (max-width: 900px) {
+  .modal__container {
+    width: 282px;
+    height: 322px;
+  }
+
+  .modal__button {
+    height: 46px;
+    margin-top: 35px;
+    background-color: #000;
+    background-size: contain;
+    background-image: url(../images/save_button_mobile.svg);
+    padding: 0px;
+    margin: 45px 0px 0px 0px;
+    border: none;
+  }
+
+  .modal__form {
+    gap: 30px;
+  }
 }
