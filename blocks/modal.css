@@ -96,4 +96,18 @@
   .modal__form {
     gap: 30px;
   }
+
+  .modal__close {
+    background-image: url(../images/close_mobile.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    top: -45px;
+    right: 0px;
+    border: none;
+    background-color: transparent;
+    width: 26px;
+    height: 26px;
+    padding: none;
+  }
 }
