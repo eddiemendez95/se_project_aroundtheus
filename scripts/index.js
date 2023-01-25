@@ -25,11 +25,12 @@ const initialCards = [
   },
 ];
 
+//                                                                            //
 //                              Elements                                      //
 //                                                                            //
 
 const openEditModalButton = document.querySelector(".profile__edit-button");
-const popupElement = document.querySelector(".modal");
+const editProfileModal = document.querySelector("#edit-modal");
 const closeEditModalButton = document.querySelector(".modal__close");
 const profileEditForm = document.querySelector(".modal__form");
 
@@ -48,15 +49,16 @@ const cardTemplate =
 
 const cardListElement = document.querySelector(".cards__list");
 
+//                                                                        //
 //                                Functions                               //
 //                                                                        //
 
 function openPopup() {
-  popupElement.classList.add("modal_opened");
+  editProfileModal.classList.add("modal_opened");
 }
 
 function closePopup() {
-  popupElement.classList.remove("modal_opened");
+  editProfileModal.classList.remove("modal_opened");
 }
 
 function getCardElement(cardData) {
@@ -71,6 +73,7 @@ function getCardElement(cardData) {
   return cardElement;
 }
 
+//                                                                          //
 //                            Event Listener                                //
 //                                                                         //
 
