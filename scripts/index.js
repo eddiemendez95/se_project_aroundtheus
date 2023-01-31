@@ -164,6 +164,8 @@ addCardForm.addEventListener("submit", function (event) {
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
   renderCard({ name, link }, cardListElement);
+  cardTitleInput.value = "";
+  cardUrlInput.value = "";
   closePopup(addCardModal);
 });
 
