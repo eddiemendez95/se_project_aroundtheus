@@ -60,15 +60,24 @@
           <input
             type="text"
             name="title"
+            id="owner-name"
             placeholder="Name"
             class="modal__input modal__input_title"
+            minlength="2"
+            maxlength="40"
+            required
           />
+          <span class="popup__error id=owner-name-error"></span>
           <input
             type="text"
             name="description"
             placeholder="Description"
             class="modal__input modal__input_description"
+            minlength="2"
+            maxlength="200"
+            required
           />
+
           <button class="modal__button"></button>
         </form>
       </div>
@@ -104,5 +113,6 @@
       </div>
     </div>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validation.js"></script>
   </body>
 </html>
