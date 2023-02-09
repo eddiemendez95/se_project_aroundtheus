@@ -60,25 +60,29 @@
           <input
             type="text"
             name="title"
-            id="owner-name"
+            id="title-name"
             placeholder="Name"
             class="modal__input modal__input_title"
             minlength="2"
             maxlength="40"
             required
           />
-          <span class="popup__error id=owner-name-error"></span>
+          <span class="popup__error" id="title-name-error"></span>
           <input
             type="text"
             name="description"
+            id="description-name"
             placeholder="Description"
             class="modal__input modal__input_description"
             minlength="2"
             maxlength="200"
             required
           />
-
-          <button class="modal__button"></button>
+          <span class="popup__error" id="description-name-error"></span>
+          <button
+            class="modal__button modal__button_disabled"
+            disabled
+          ></button>
         </form>
       </div>
     </div>
@@ -91,16 +95,27 @@
           <input
             type="text"
             name="place"
+            id="place-name"
             placeholder="Title"
             class="modal__input modal__input_place"
+            minlength="1"
+            maxlength="30"
+            required
           />
+          <span class="popup__error" id="place-name-error"></span>
           <input
             type="text"
             name="url"
+            id="url-name"
             placeholder="Image Link"
             class="modal__input modal__input_url"
+            required
           />
-          <button class="modal__button"></button>
+          <span class="popup__error" id="url-name-error"></span>
+          <button
+            class="modal__button modal__button_disabled"
+            disabled
+          ></button>
         </form>
       </div>
     </div>
