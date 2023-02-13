@@ -28,6 +28,7 @@ const initialCards = [
 //                                                                            //
 //                              Elements                                      //
 //                                                                            //
+const modal = document.querySelector(".modal");
 const editProfileModal = document.querySelector("#edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const profileEditForm = editProfileModal.querySelector(".modal__form");
@@ -170,3 +171,11 @@ addCardForm.addEventListener("submit", function (event) {
 });
 
 initialCards.forEach((cardData) => renderCard(cardData, cardListElement));
+
+function keyHandler(evt) {
+  if (evt.key === "Escape") {
+    closePopup();
+  }
+}
+
+modal.addEventListener("keydown", keyHandler);
