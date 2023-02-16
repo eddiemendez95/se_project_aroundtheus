@@ -8,6 +8,7 @@
 .card__image {
   width: 282px;
   height: 282px;
+  cursor: pointer;
 }
 
 .card__description {
@@ -49,6 +50,7 @@
   height: 18px;
   padding: 0;
   border: none;
+  cursor: pointer;
 }
 
 .card__like-button:hover {

@@ -28,7 +28,6 @@ const initialCards = [
 //                                                                            //
 //                              Elements                                      //
 //                                                                            //
-const modal = document.querySelector(".modal");
 const editProfileModal = document.querySelector("#edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const profileEditForm = editProfileModal.querySelector(".modal__form");
@@ -116,6 +115,11 @@ function renderCard(cardData, wrap) {
   wrap.prepend(cardElement);
 }
 
+function fillProfileForm() {
+  profileTitleInput.value = profileTitleElement.textContent;
+  profileDescriptionInput.value = profileDescriptionElement.textContent;
+}
+
 function deleteCard(event) {
   event.target.closest(".card").remove();
 }
@@ -150,13 +154,10 @@ closeNewCardModalButton.addEventListener("click", () =>
   closePopup(addCardModal)
 );
 
-openEditModalButton.addEventListener("click", () =>
-  openPopup(editProfileModal)
-);
-{
-  profileTitleInput.value = profileTitleElement.textContent;
-  profileDescriptionInput.value = profileDescriptionElement.textContent;
-}
+openEditModalButton.addEventListener("click", () => {
+  fillProfileForm();
+  openPopup(editProfileModal);
+});
 
 closeEditModalButton.addEventListener("click", () =>
   closePopup(editProfileModal)
