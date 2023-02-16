@@ -149,7 +149,10 @@ function handleOverlay(e) {
 //                            Event Listener                                //
 //                                                                         //
 
-addNewCardButton.addEventListener("click", () => openPopup(addCardModal));
+addNewCardButton.addEventListener("click", () => {
+  openPopup(addCardModal);
+});
+
 closeNewCardModalButton.addEventListener("click", () =>
   closePopup(addCardModal)
 );
