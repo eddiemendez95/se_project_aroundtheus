@@ -150,4 +150,8 @@
     max-width: 100%;
     max-height: 240px;
   }
+
+  .modal__button_disabled {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
 }
