@@ -33,7 +33,7 @@ const addCardModal = document.querySelector("#add-card-modal");
 const profileEditForm = editProfileModal.querySelector(".modal__form");
 const addCardForm = addCardModal.querySelector(".modal__form");
 const addCardInputs = [...addCardForm.querySelectorAll(".modal__input")];
-const submitButton = addCardForm.querySelector(".modal__button");
+const cardFormSubmitButton = addCardForm.querySelector(".modal__button");
 const previewImageModal = document.querySelector("#preview-image-modal");
 const previewImage = previewImageModal.querySelector(".modal__preview-image");
 const previewDescription = previewImageModal.querySelector(
@@ -152,9 +152,7 @@ function handleOverlay(e) {
 //                                                                         //
 
 addNewCardButton.addEventListener("click", () => {
-  toggleButtonState(addCardInputs, submitButton, {
-    inactiveButtonClass: "modal__button_disabled",
-  });
+  toggleButtonState(addCardInputs, cardFormSubmitButton, config);
   openPopup(addCardModal);
 });
 
