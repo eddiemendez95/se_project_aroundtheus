@@ -3,6 +3,7 @@
   flex-direction: column;
   border-radius: 10px;
   overflow: hidden;
+  position: relative;
 }
 
 .card__image {
@@ -43,7 +44,7 @@
 
 .card__trash-button {
   background: transparent url(../images/trash_button.svg) center no-repeat;
-  position: relative;
+  position: absolute;
   top: 25px;
   left: 255px;
   width: 19px;
