@@ -1,3 +1,6 @@
+import FormValidator from "./FormValidator.js";
+import Card from "./Card.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -92,14 +95,14 @@ function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageElement = cardElement.querySelector(".card__image");
   const cardTitleElement = cardElement.querySelector(".card__description-name");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const deleteButton = cardElement.querySelector(".card__trash-button");
+  // const likeButton = cardElement.querySelector(".card__like-button");
+  // const deleteButton = cardElement.querySelector(".card__trash-button");
 
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_active");
-  });
+  // likeButton.addEventListener("click", () => {
+  //   likeButton.classList.toggle("card__like-button_active");
+  // });
 
-  deleteButton.addEventListener("click", deleteCard);
+  // deleteButton.addEventListener("click", deleteCard);
 
   cardImageElement.addEventListener("click", () => {
     openImageModal(cardData);
@@ -122,9 +125,9 @@ function fillProfileForm() {
   profileDescriptionInput.value = profileDescriptionElement.textContent;
 }
 
-function deleteCard(event) {
-  event.target.closest(".card").remove();
-}
+// function deleteCard(event) {
+//   event.target.closest(".card").remove();
+// }
 
 function openImageModal(cardData) {
   previewImage.src = cardData.link;
@@ -195,3 +198,9 @@ addCardForm.addEventListener("submit", function (event) {
 });
 
 initialCards.forEach((cardData) => renderCard(cardData, cardListElement));
+
+const editFormValidation = new FormValidator(config, profileEditModal);
+const addFormValidation = new FormValidator(config, profileAddModal);
+
+const card = new Card(initialCards[0]);
+card.getView();
