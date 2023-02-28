@@ -6,53 +6,53 @@ class Card {
   }
 
   _getTemplate() {
-    const cardEl = document
+    const cardElement = document
       .querySelector("#card-template")
       .content.querySelector(".card")
       .cloneNode();
+
+    return cardElement;
   }
 
   _setEventListeners() {
-    this._cardElement
-      .querySelector(".card__like-button")
-      .addEventListener("click", () => {
-        this._handleLikeIcon();
-      });
-
-    this._cardElement
-      .querySelector(".card__delete-button")
-      .addEventListener("click", () => {
-        this._handleDeleteCard();
-      });
+    this._cardImage.addEventListener("click", () => this._handlePreview());
+    this._cardDeleteButton.addEventListener("click", this._handleDeleteCard);
+    this._likeButton.addEventListener("click", this._handleLikeIcon);
   }
 
   _openImageModal() {
+    const previewImage = document.querySelector(".modal__preview-image");
+    const previewDescription = document.querySelector(".modal__preview-title");
+
     previewImage.src = this._link;
     previewImage.alt = this._name;
     previewDescription.textContent = this._name;
-
-    openImageModal();
   }
 
-  _handleLikeIcon() {
-    this._cardElement
-      .querySelector(".card__like-button")
-      .classList.toggle(".card__like-button-is-active");
-  }
+  _handleLikeIcon = () => {
+    this._likeButton.classList.toggle(".card__like-button-active");
+  };
 
-  _handleDeleteCard() {
+  _handleDeleteCard = () => {
     this._cardElement.remove();
-  }
+  };
 
-  getView() {
-    this._card = this._getTemplate();
+  renderCard() {
+    this._element = this._getTemplate();
+    this._likeButton = this._element.querySelector(".card__like-button");
+    this._cardImage = this._element.querySelector(".card__image");
+    this._cardTitle = this._element.querySelector(".card__title");
+    this._cardDeleteButton = this._element.querySelector(
+      ".card__delete-button"
+    );
+
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    this._cardTitle.textContent = this._name;
+
     this._setEventListeners();
 
-    this._card.querySelector(".card__image").src = this._link;
-    this._card.querySelector(".card__title").textContent = this._name;
-    this._card.querySelector(".card__image").alt = this._name;
-
-    return this._card;
+    return this._element;
   }
 }
 
