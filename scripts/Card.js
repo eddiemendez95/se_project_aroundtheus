@@ -1,7 +1,7 @@
 class Card {
   constructor(data, cardSelector) {
     this._name = data.name;
-    this._link = data._link;
+    this._link = data.link;
     this._cardSelector = cardSelector;
   }
 
@@ -9,7 +9,7 @@ class Card {
     const cardElement = document
       .querySelector("#card-template")
       .content.querySelector(".card")
-      .cloneNode();
+      .cloneNode(true);
 
     return cardElement;
   }
@@ -41,10 +41,8 @@ class Card {
     this._element = this._getTemplate();
     this._likeButton = this._element.querySelector(".card__like-button");
     this._cardImage = this._element.querySelector(".card__image");
-    this._cardTitle = this._element.querySelector(".card__title");
-    this._cardDeleteButton = this._element.querySelector(
-      ".card__delete-button"
-    );
+    this._cardTitle = this._element.querySelector(".card__description-name");
+    this._cardDeleteButton = this._element.querySelector(".card__trash-button");
 
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
