@@ -1,6 +1,8 @@
 import FormValidator from "./formvalidator.js";
 import Card from "./card.js";
 
+import { openPopup, closePopup } from "./utilis.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -80,17 +82,17 @@ const cardListElement = document.querySelector(".cards__list");
 //                                Functions                               //
 //                                                                        //
 
-function openPopup(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keydown", closeByEscape);
-  document.addEventListener("mousedown", handleOverlay);
-}
+// function openPopup(modal) {
+//   modal.classList.add("modal_opened");
+//   document.addEventListener("keydown", closeByEscape);
+//   document.addEventListener("mousedown", handleOverlay);
+// }
 
-function closePopup(modal) {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("keydown", closeByEscape);
-  document.removeEventListener("mousedown", handleOverlay);
-}
+// function closePopup(modal) {
+//   modal.classList.remove("modal_opened");
+//   document.removeEventListener("keydown", closeByEscape);
+//   document.removeEventListener("mousedown", handleOverlay);
+// }
 
 // function getCardElement(cardData) {
 //   const cardElement = cardTemplate.cloneNode(true);
@@ -138,22 +140,26 @@ function fillProfileForm() {
 //   openPopup(previewImageModal);
 // }
 
-function closeByEscape(e) {
-  if (e.key === "Escape") {
-    const openedPopup = document.querySelector(".modal_opened");
-    closePopup(openedPopup);
-  }
-}
+// function closeByEscape(e) {
+//   if (e.key === "Escape") {
+//     const openedPopup = document.querySelector(".modal_opened");
+//     closePopup(openedPopup);
+//   }
+// }
 
-function handleOverlay(e) {
-  if (e.target.classList.contains("modal_opened")) {
-    closePopup(e.target);
-  }
-}
+// function handleOverlay(e) {
+//   if (e.target.classList.contains("modal_opened")) {
+//     closePopup(e.target);
+//   }
+// }
 
 function renderCard(cardData) {
   const card = new Card(cardData, "#card-Template").renderCard();
   cardListElement.prepend(card);
+}
+
+function handleImageClick() {
+  openPopup(previewImageModal);
 }
 
 //                                                                          //
@@ -161,7 +167,8 @@ function renderCard(cardData) {
 //                                                                         //
 
 addNewCardButton.addEventListener("click", () => {
-  toggleButtonState(addCardInputs, cardFormSubmitButton, config);
+  // toggleButtonState(addCardInputs, cardFormSubmitButton, config);
+  addFormValidation.toggleSubmitBtn;
   openPopup(addCardModal);
 });
 
@@ -219,3 +226,5 @@ const addFormValidation = new FormValidator(config, addCardModal);
 
 editFormValidation.enableValidation();
 addFormValidation.enableValidation();
+
+export { handleImageClick };

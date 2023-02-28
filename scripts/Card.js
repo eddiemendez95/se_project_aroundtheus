@@ -1,3 +1,5 @@
+import { handleImageClick } from "./index.js";
+
 class Card {
   constructor(data, cardSelector) {
     this._name = data.name;
@@ -15,18 +17,22 @@ class Card {
   }
 
   _setEventListeners() {
-    this._cardImage.addEventListener("click", () => this._handlePreview());
+    this._cardImage.addEventListener("click", () => this._openImageModal());
     this._cardDeleteButton.addEventListener("click", this._handleDeleteCard);
     this._likeButton.addEventListener("click", this._handleLikeIcon);
   }
 
   _openImageModal() {
     const previewImage = document.querySelector(".modal__preview-image");
-    const previewDescription = document.querySelector(".modal__preview-title");
+    const previewDescription = document.querySelector(
+      ".modal__preview-description"
+    );
 
     previewImage.src = this._link;
     previewImage.alt = this._name;
     previewDescription.textContent = this._name;
+
+    handleImageClick();
   }
 
   _handleLikeIcon = () => {
@@ -34,7 +40,7 @@ class Card {
   };
 
   _handleDeleteCard = () => {
-    this._cardElement.remove();
+    this._element.remove();
   };
 
   renderCard() {

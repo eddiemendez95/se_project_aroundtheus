@@ -16,14 +16,9 @@ class FormValidator {
     const submitButton = this._formElement.querySelector(this._submitButton);
     inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", () => {
-        this._checkValidity(inputEl);
+        this._checkInputValidity(inputEl);
         this._toggleSubmitBtn(inputEls, submitButton);
       });
-      // this._formElement.addEventListener("reset", () => {
-      //     setTimeout(() => {
-      //      this._toggleSubmitBtn(inputEls, buttonEl)
-      //     }, 0);
-      //   });
     });
   }
 
@@ -53,8 +48,8 @@ class FormValidator {
     errorElement.classList.remove(this._errorClass);
   }
 
-  _toggleSubmitBtn(inputEls, buttonEl) {
-    if (this._hasInvalidInput(inputEls)) {
+  toggleSubmitBtn(inputEls, buttonEl) {
+    if (this._checkInputValidity(inputEls)) {
       this._disableSubmitBtn(buttonEl);
     } else {
       this._enableSubmitBtn(buttonEl);
