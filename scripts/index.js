@@ -177,7 +177,7 @@ function handleImageClick() {
 
 addNewCardButton.addEventListener("click", () => {
   // toggleButtonState(addCardInputs, cardFormSubmitButton, config);
-  // addFormValidation.toggleSubmitBtn();
+  addFormValidation.toggleSubmitBtn();
   openPopup(addCardModal);
 });
 

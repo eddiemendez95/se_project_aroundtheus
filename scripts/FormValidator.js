@@ -12,11 +12,11 @@ class FormValidator {
     this._inputEls = [
       ...this._formElement.querySelectorAll(this._inputSelector),
     ];
-    const submitButton = this._formElement.querySelector(this._submitButton);
+    this.buttonElement = this._formElement.querySelector(this._submitButton);
     this._inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", () => {
         this._checkInputValidity(inputEl);
-        this.toggleSubmitBtn(this._inputEls, submitButton);
+        this.toggleSubmitBtn(this._inputEls, this.buttonElement);
       });
     });
   }
@@ -47,25 +47,37 @@ class FormValidator {
     errorElement.classList.remove(this._errorClass);
   }
 
-  toggleSubmitBtn(inputEls, buttonEl) {
-    if (this._checkFormValidity(inputEls)) {
-      this._disableSubmitBtn(buttonEl);
+  // toggleSubmitBtn() {
+  //   if (this._checkFormValidity(this._inputEls)) {
+  //     this._disableSubmitBtn(this._submitButton);
+  //   } else {
+  //     this._enableSubmitBtn(this._submitButton);
+  //   }
+  // }
+
+  // _checkFormValidity = () =>
+  //   this._inputEls.every((input) => input.validity.valid);
+
+  // _enableSubmitBtn() {
+  //   this._submitButton.classList.remove(this._inactiveButtonClass);
+  //   this._submitButton.disabled = false;
+  // }
+  // _disableSubmitBtn() {
+  //   this._submitButton.classList.add(this._inactiveButtonClass);
+  //   this._submitButton.disabled = true;
+  // }
+
+  _hasInvalidInput = () =>
+    this._inputEls.some((input) => !input.validity.valid);
+
+  toggleSubmitBtn() {
+    if (this._hasInvalidInput(this._inputEls)) {
+      this.buttonElement.classList.add(this._inactiveButtonClass);
+      this.buttonElement.disabled = true;
     } else {
-      this._enableSubmitBtn(buttonEl);
+      this.buttonElement.classList.remove(this._inactiveButtonClass);
+      this.buttonElement.disabled = false;
     }
-  }
-
-  _checkFormValidity() {
-    (inputs) => inputs.every((input) => input.validity.valid);
-  }
-
-  _enableSubmitBtn(buttonEl) {
-    buttonEl.classList.remove(this._inactiveButtonClass);
-    buttonEl.disabled = false;
-  }
-  _disableSubmitBtn(buttonEl) {
-    buttonEl.classList.add(this._inactiveButtonClass);
-    buttonEl.disabled = true;
   }
 
   enableValidation() {
