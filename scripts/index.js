@@ -1,7 +1,7 @@
 import FormValidator from "./formvalidator.js";
 import Card from "./card.js";
 
-import { openPopup, closePopup } from "./utilis.js";
+import Popup from "./popup.js";
 
 const initialCards = [
   {
@@ -175,28 +175,28 @@ function handleImageClick() {
 //                            Event Listener                                //
 //                                                                         //
 
-addNewCardButton.addEventListener("click", () => {
-  // toggleButtonState(addCardInputs, cardFormSubmitButton, config);
-  addFormValidation.toggleSubmitBtn();
-  openPopup(addCardModal);
-});
+// addNewCardButton.addEventListener("click", () => {
+//   // toggleButtonState(addCardInputs, cardFormSubmitButton, config);
+//   addFormValidation.toggleSubmitBtn();
+//   openPopup(addCardModal);
+// });
 
-closeNewCardModalButton.addEventListener("click", () =>
-  closePopup(addCardModal)
-);
+// closeNewCardModalButton.addEventListener("click", () =>
+//   closePopup(addCardModal)
+// );
 
-openEditModalButton.addEventListener("click", () => {
-  fillProfileForm();
-  openPopup(editProfileModal);
-});
+// openEditModalButton.addEventListener("click", () => {
+//   fillProfileForm();
+//   openPopup(editProfileModal);
+// });
 
-closeEditModalButton.addEventListener("click", () =>
-  closePopup(editProfileModal)
-);
+// closeEditModalButton.addEventListener("click", () =>
+//   closePopup(editProfileModal)
+// );
 
-closePreviewModalButton.addEventListener("click", () =>
-  closePopup(previewImageModal)
-);
+// closePreviewModalButton.addEventListener("click", () =>
+//   closePopup(previewImageModal)
+// );
 
 profileEditForm.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -223,8 +223,12 @@ initialCards.forEach((cardData) => renderCard(cardData, cardListElement));
 
 const editFormValidation = new FormValidator(config, editProfileModal);
 const addFormValidation = new FormValidator(config, addCardModal);
+const editPopup = new Popup("#edit-modal");
+const addCardPopup = new Popup("#add-card-modal");
 
 editFormValidation.enableValidation();
 addFormValidation.enableValidation();
+editPopup.setEventListeners();
+addCardPopup.setEventListeners();
 
 export { handleImageClick };
