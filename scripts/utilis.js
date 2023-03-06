@@ -17,8 +17,8 @@
 //   }
 // }
 
-function handleOverlay(e) {
-  if (e.target.classList.contains("modal_opened")) {
-    closePopup(e.target);
-  }
-}
+// function handleOverlay(e) {
+//   if (e.target.classList.contains("modal_opened")) {
+//     closePopup(e.target);
+//   }
+// }

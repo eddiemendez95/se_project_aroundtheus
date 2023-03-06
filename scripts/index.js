@@ -1,7 +1,8 @@
 import FormValidator from "./formvalidator.js";
 import Card from "./card.js";
-
 import Popup from "./popup.js";
+import PopupWithForm from "./popupwithform.js";
+import Section from "./section.js";
 
 const initialCards = [
   {
@@ -221,14 +222,25 @@ addCardForm.addEventListener("submit", function (event) {
 
 initialCards.forEach((cardData) => renderCard(cardData, cardListElement));
 
+//
+//
+
 const editFormValidation = new FormValidator(config, editProfileModal);
 const addFormValidation = new FormValidator(config, addCardModal);
 const editPopup = new Popup("#edit-modal");
 const addCardPopup = new Popup("#add-card-modal");
+const imagePopup = new Popup("#preview-image-modal");
 
 editFormValidation.enableValidation();
 addFormValidation.enableValidation();
 editPopup.setEventListeners();
 addCardPopup.setEventListeners();
+imagePopup.setEventListeners();
+
+const editFormPopup = new PopupWithForm("#edit-modal", addCardForm);
+const addFormPopup = new PopupWithForm("#add-card-modal", profileEditForm);
+
+editFormPopup._setEventListeners();
+addFormPopup._setEventListeners();
 
 export { handleImageClick };

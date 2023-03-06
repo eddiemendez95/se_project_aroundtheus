@@ -1,44 +1,38 @@
 class Popup {
   constructor({ popupSelector }) {
+    console.log(popupSelector);
     this._popupSelector = document.querySelector(popupSelector);
   }
 
   open() {
-    modal.classList.add("modal_opened");
-    document.addEventListener("keydown", this._handleEscClose);
-    document.addEventListener("mousedown", handleOverlay);
+    this._popupSelector.classList.add("modal_opened");
   }
 
   close() {
-    modal.classList.remove("modal_opened");
-    document.removeEventListener("keydown", closeByEscape);
-    document.removeEventListener("mousedown", handleOverlay);
+    this._popupSelector.classList.remove("modal_opened");
+    this.removeEventListener();
   }
 
   _handleEscClose(e) {
     if (e.key === "Escape") {
-      const openedPopup = document.querySelector(".modal_opened");
-      close(openedPopup);
+      this.close();
+    }
+  }
+
+  _handleOverlay(e) {
+    if (e.target.classList.contains("modal_opened")) {
+      this.close();
     }
   }
 
   setEventListeners() {
-    this.addNewCardButton.addEventListener("click", () => {
-      addFormValidation.toggleSubmitBtn();
-      open(addCardModal);
-    });
-    this.closeNewCardModalButton.addEventListener("click", () =>
-      close(addCardModal)
-    );
+    document.addEventListener("keydown", this._handleEscClose);
+    document.addEventListener("mousedown", this._handleOverlay);
+  }
 
-    this.openEditModalButton.addEventListener("click", () => {
-      fillProfileForm();
-      open(editProfileModal);
-    });
-
-    this.closeEditModalButton.addEventListener("click", () =>
-      close(editProfileModal)
-    );
+  removeEventListener() {
+    document.removeEventListener("keydown", closeByEscape);
+    document.removeEventListener("mousedown", handleOverlay);
   }
 }
 
