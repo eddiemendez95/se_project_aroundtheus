@@ -32,18 +32,18 @@
 }
 
 .card__like-button {
-  background: transparent url(../images/like_inactive.svg) center no-repeat;
+  background: transparent url(/images/like_inactive.svg) center no-repeat;
   width: 21px;
   height: 18px;
   border: none;
 }
 
 .card__like-button_active {
-  background: url(../images/like_active.svg);
+  background: url(/images/like_active.svg);
 }
 
 .card__trash-button {
-  background: transparent url(../images/trash_button.svg) center no-repeat;
+  background: transparent url(/images/trash_button.svg) center no-repeat;
   position: absolute;
   top: 25px;
   left: 255px;
