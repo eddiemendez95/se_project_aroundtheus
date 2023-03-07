@@ -1,10 +1,10 @@
-import { handleImageClick } from "./index.js";
-
 class Card {
-  constructor(data, cardSelector) {
+  constructor(data, cardSelector, handleImageClick) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
+
+    this._handleImageClick = handleImageClick;
   }
 
   _getTemplate() {
@@ -17,22 +17,22 @@ class Card {
   }
 
   _setEventListeners() {
-    this._cardImage.addEventListener("click", () => this._openImageModal());
+    this._cardImage.addEventListener("click", () => this._openImageModal);
     this._cardDeleteButton.addEventListener("click", this._handleDeleteCard);
     this._likeButton.addEventListener("click", this._handleLikeIcon);
   }
 
   _openImageModal() {
-    const previewImage = document.querySelector(".modal__preview-image");
-    const previewDescription = document.querySelector(
-      ".modal__preview-description"
-    );
+    // const previewImage = document.querySelector(".modal__preview-image");
+    // const previewDescription = document.querySelector(
+    //   ".modal__preview-description"
+    // );
 
-    previewImage.src = this._link;
-    previewImage.alt = this._name;
-    previewDescription.textContent = this._name;
+    // previewImage.src = this._link;
+    // previewImage.alt = this._name;
+    // previewDescription.textContent = this._name;
 
-    handleImageClick();
+    this._handleImageClick(this._name, this._link);
   }
 
   _handleLikeIcon = () => {

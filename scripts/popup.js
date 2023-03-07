@@ -1,6 +1,5 @@
 class Popup {
   constructor({ popupSelector }) {
-    console.log(popupSelector);
     this._popupSelector = document.querySelector(popupSelector);
   }
 
@@ -28,11 +27,14 @@ class Popup {
   setEventListeners() {
     document.addEventListener("keydown", this._handleEscClose);
     document.addEventListener("mousedown", this._handleOverlay);
+    // this.closeButton.addEventListener("click", () => {
+    //   this.close();
+    // });
   }
 
   removeEventListener() {
-    document.removeEventListener("keydown", closeByEscape);
-    document.removeEventListener("mousedown", handleOverlay);
+    document.removeEventListener("keydown", this._handleEscClose);
+    document.removeEventListener("mousedown", this._handleOverlay);
   }
 }
 
