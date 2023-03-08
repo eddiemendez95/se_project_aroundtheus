@@ -3,6 +3,7 @@ import Card from "../components/card.js";
 import PopupWithForm from "../components/popupwithform.js";
 import Section from "../components/section.js";
 import PopupImage from "../components/popupwithimage.js";
+import "./index.css";
 
 const initialCards = [
   {
