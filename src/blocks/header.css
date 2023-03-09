@@ -4,6 +4,7 @@
 }
 
 .header__image {
+  background-image: "/src/images/logo.svg";
   margin-bottom: 41px;
 }
 

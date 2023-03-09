@@ -13,6 +13,7 @@ class FormValidator {
       ...this._formElement.querySelectorAll(this._inputSelector),
     ];
     this.buttonElement = this._formElement.querySelector(this._submitButton);
+
     this._inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", () => {
         this._checkInputValidity(inputEl);
@@ -51,13 +52,17 @@ class FormValidator {
     this._inputEls.some((input) => !input.validity.valid);
 
   toggleSubmitBtn() {
-    if (this._hasInvalidInput(this._inputEls)) {
+    if (this._hasInvalidInput()) {
       this.buttonElement.classList.add(this._inactiveButtonClass);
       this.buttonElement.disabled = true;
     } else {
       this.buttonElement.classList.remove(this._inactiveButtonClass);
       this.buttonElement.disabled = false;
     }
+  }
+
+  resetValidation() {
+    this.toggleSubmitBtn();
   }
 
   enableValidation() {

@@ -14,6 +14,15 @@ class PopupWithForm extends Popup {
     super.close();
   }
 
+  _getInputValues() {
+    const inputValues = {};
+
+    this._formInputs.forEach((input) => {
+      inputValues[input.name] = input.value;
+    });
+    return inputValues;
+  }
+
   _setEventListeners() {
     super.setEventListeners;
     this._closeButton.addEventListener("click", () => {
@@ -22,7 +31,7 @@ class PopupWithForm extends Popup {
 
     this._popupForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      this._handleFormSubmit;
+      this._handleFormSubmit();
       this.close();
     });
   }
