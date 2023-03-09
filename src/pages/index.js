@@ -121,11 +121,10 @@ function openProfileEditForm() {
 }
 
 function submitEditProfile() {
-  userInfo.setUserInfo({
-    name: (profileTitleElement.textContent = profileTitleInput.value),
-    job: (profileDescriptionElement.textContent =
-      profileDescriptionInput.value),
-  });
+  userInfo.setUserInfo(
+    (profileTitleElement.textContent = profileTitleInput.value),
+    (profileDescriptionElement.textContent = profileDescriptionInput.value)
+  );
   // editFormPopup.close(profileEditForm);
 }
 
