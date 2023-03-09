@@ -6,12 +6,17 @@ class Popup {
 
   open() {
     this._popupSelector.classList.add("modal_opened");
-    this.setEventListeners();
+    document.addEventListener("keydown", (e) => this._handleEscClose(e));
+    document.addEventListener("mousedown", (e) => this._handleOverlay(e));
+    this._closeButton.addEventListener("click", () => {
+      this.close();
+    });
   }
 
   close() {
     this._popupSelector.classList.remove("modal_opened");
-    this.removeEventListener();
+    document.removeEventListener("keydown", (e) => this._handleEscClose(e));
+    document.removeEventListener("mousedown", (e) => this._handleOverlay(e));
   }
 
   _handleEscClose(e) {
@@ -27,16 +32,8 @@ class Popup {
   }
 
   setEventListeners() {
-    document.addEventListener("keydown", this._handleEscClose);
-    document.addEventListener("mousedown", this._handleOverlay);
-    this._closeButton.addEventListener("click", () => {
-      this.close();
-    });
-  }
-
-  removeEventListener() {
-    document.removeEventListener("keydown", this._handleEscClose);
-    document.removeEventListener("mousedown", this._handleOverlay);
+    this.open();
+    this.close();
   }
 }
 

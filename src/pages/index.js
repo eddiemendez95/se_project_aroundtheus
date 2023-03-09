@@ -187,8 +187,8 @@ const editFormPopup = new PopupWithForm("#edit-modal", submitEditProfile);
 const addFormPopup = new PopupWithForm("#add-card-modal", submitAddCard);
 const imagePopup = new PopupImage("#preview-image-modal", handleImageClick);
 
-editFormPopup._setEventListeners();
-addFormPopup._setEventListeners();
+editFormPopup.setEventListeners();
+addFormPopup.setEventListeners();
 imagePopup.setEventListeners();
 
 const section = new Section(
