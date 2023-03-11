@@ -54,7 +54,7 @@ class Card {
     this._cardDeleteButton = this._element.querySelector(".card__trash-button");
 
     this._cardImage.src = this._link;
-    cardTitle.alt = this._name;
+    this._cardImage.alt = this._name;
     cardTitle.textContent = this._name;
 
     this._setEventListeners();
