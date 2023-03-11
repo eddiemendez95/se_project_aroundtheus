@@ -82,17 +82,20 @@ function openProfileEditForm() {
   editFormPopup.open();
 }
 
-function submitEditProfile() {
-  userInfo.setUserInfo(
-    (profileTitleElement.textContent = profileTitleInput.value),
-    (profileDescriptionElement.textContent = profileDescriptionInput.value)
-  );
+function submitEditProfile(inputValues) {
+  console.log(inputValues);
+  userInfo.setUserInfo({
+    name: inputValues.title,
+    job: inputValues.description,
+  });
 }
 
-function submitAddCard() {
-  const name = cardTitleInput.value;
-  const link = cardUrlInput.value;
-  renderCard({ name, link }, cardListElement);
+function submitAddCard(inputValues) {
+  console.log(inputValues);
+  renderCard(
+    { name: inputValues.place, link: inputValues.url },
+    cardListElement
+  );
 }
 
 function renderCard(cardData) {
