@@ -91,11 +91,7 @@ function submitEditProfile(inputValues) {
 }
 
 function submitAddCard(inputValues) {
-  console.log(inputValues);
-  renderCard(
-    { name: inputValues.place, link: inputValues.url },
-    cardListElement
-  );
+  renderCard({ name: inputValues.place, link: inputValues.url });
 }
 
 function renderCard(cardData) {
@@ -104,7 +100,7 @@ function renderCard(cardData) {
     "#card-template",
     handleImageClick
   ).renderCard();
-  cardListElement.prepend(card);
+  section.addItem(card);
 }
 
 function handleImageClick(name, link) {

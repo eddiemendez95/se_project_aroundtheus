@@ -1,15 +1,15 @@
 class Card {
-  constructor(data, cardSelector, handleImageClick) {
+  constructor(data, cardTemplate, handleImageClick) {
     this._name = data.name;
     this._link = data.link;
-    this._cardSelector = cardSelector;
+    this._cardTemplate = cardTemplate;
 
     this._handleImageClick = handleImageClick;
   }
 
   _getTemplate() {
     const cardElement = document
-      .querySelector("#card-template")
+      .querySelector(this._cardTemplate)
       .content.querySelector(".card")
       .cloneNode(true);
 
@@ -25,16 +25,6 @@ class Card {
   }
 
   _openImageModal() {
-    // const previewImage = document.querySelector(".modal__preview-image");
-    // const previewDescription = document.querySelector(
-    //   ".modal__preview-description"
-    // );
-
-    // previewImage.src = this._link;
-    // previewImage.alt = this._name;
-    // previewDescription.textContent = this._name;
-    console.log("test");
-
     this._handleImageClick(this._name, this._link);
   }
 
