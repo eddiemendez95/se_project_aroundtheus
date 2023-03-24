@@ -1,3 +1,4 @@
+import Api from "../components/Api.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import PopupWithForm from "../components/PopupWithForm";
@@ -24,6 +25,14 @@ import {
 //
 //      Class Constants
 //
+
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-12",
+  headers: {
+    authorization: "6a58fd7e-1eaa-46b8-9bcd-ee0a5e1d932d",
+    "Content-Type": "application/json",
+  },
+});
 
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
