@@ -6,6 +6,7 @@ import Section from "../components/Section.js";
 import PopupImage from "../components/PopupWithImage.js";
 import "./index.css";
 import UserInfo from "../components/UserInfo.js";
+import PopupWithConfirm from "../components/PopupwithConfirm.js";
 import {
   config,
   initialCards,
@@ -44,6 +45,7 @@ const addFormValidation = new FormValidator(config, addCardModal);
 const editFormPopup = new PopupWithForm("#edit-modal", submitEditProfile);
 const addFormPopup = new PopupWithForm("#add-card-modal", submitAddCard);
 const imagePopup = new PopupImage("#preview-image-modal", handleImageClick);
+const deleteCardConfirm = new PopupWithConfirm("#previewModal");
 
 const section = new Section(
   {
@@ -63,6 +65,7 @@ addFormValidation.enableValidation();
 editFormPopup.setEventListeners();
 addFormPopup.setEventListeners();
 imagePopup.setEventListeners();
+deleteCardConfirm.setEventListeners();
 
 section.renderItems();
 
@@ -115,3 +118,18 @@ function renderCard(cardData) {
 function handleImageClick(name, link) {
   imagePopup.open(name, link);
 }
+
+// (cardId) => {
+//   deleteCardPopup.open();
+//   deleteCardPopup.setSubmitAction(() => {
+//     api
+//       .deleteUserCard(cardId)
+//       .then(() => {
+//         card.deleteCard();
+//         deleteCardPopup.close();
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   });
+// },

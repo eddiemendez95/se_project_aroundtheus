@@ -1,11 +1,22 @@
 class Card {
-  constructor(data, cardTemplate, handleImageClick) {
+  constructor(
+    data,
+    cardTemplate,
+    handleImageClick,
+    handleLikeClick,
+    handleDeleteCard,
+    loadingLikeCheck
+  ) {
     this._id = data._id;
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
     this._cardTemplate = cardTemplate;
     this._handleImageClick = handleImageClick;
+    this._handleLikeClick = handleLikeClick;
+    this._handleDeleteCard = handleDeleteCard;
+    this._loadingLikeCheck = loadingLikeCheck;
+    this._userCardOwnerId = data["owner"]._id;
   }
 
   _getTemplate() {
@@ -22,19 +33,20 @@ class Card {
       this._handleImageClick(this._name, this._link)
     );
     this._cardDeleteButton.addEventListener("click", this._handleDeleteCard);
-    this._likeButton.addEventListener("click", this._handleLikeIcon);
+    this._likeButton.addEventListener("click", this.handleLikeClick);
   }
 
   _openImageModal() {
     this._handleImageClick(this._name, this._link);
   }
 
-  // _handleLikeIcon = () => {
-  //   this._likeButton.classList.toggle("card__like-button_active");
-  // };
+  _handleLikeIcon = () => {
+    this._likeButton.classList.toggle("card__like-button_active");
+  };
 
-  _handleDeleteCard = () => {
+  deleteCard = () => {
     this._element.remove();
+    this._element = null;
   };
 
   addCardLike() {
@@ -70,6 +82,11 @@ class Card {
     this._cardImage.alt = this._name;
     cardTitle.textContent = this._name;
     this._cardLikes.textContent = this._likes.length;
+    this._loadingLikeCheck(this._likes, this._likeButton);
+
+    if (this._userId != this._userCardOwnerId) {
+      this._deleteButton.remove();
+    }
 
     this._setEventListeners();
 
