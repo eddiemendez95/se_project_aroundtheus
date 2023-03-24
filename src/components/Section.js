@@ -10,7 +10,8 @@ class Section {
   }
 
   addItem(item) {
-    this._cardsList.prepend(item);
+    const newItem = this._renderer(item);
+    this._cardsList.prepend(newItem);
   }
 }
 

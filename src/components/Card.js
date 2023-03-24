@@ -1,6 +1,7 @@
 class Card {
   constructor(
     data,
+    userId,
     cardTemplate,
     handleImageClick,
     handleLikeClick,
@@ -8,6 +9,7 @@ class Card {
     loadingLikeCheck
   ) {
     this._id = data._id;
+    this._userId = userId;
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -16,7 +18,7 @@ class Card {
     this._handleLikeClick = handleLikeClick;
     this._handleDeleteCard = handleDeleteCard;
     this._loadingLikeCheck = loadingLikeCheck;
-    this._userCardOwnerId = data["owner"]._id;
+    this._userCardOwnerId = this._id;
   }
 
   _getTemplate() {
@@ -76,16 +78,17 @@ class Card {
     this._cardImage = this._element.querySelector(".card__image");
     const cardTitle = this._element.querySelector(".card__description-name");
     this._cardDeleteButton = this._element.querySelector(".card__trash-button");
-    this._cardLikes = this._cardElement.querySelector(".card__likes-counter");
+    this._cardLikes = this._element.querySelector(".card__likes-counter");
 
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     cardTitle.textContent = this._name;
+    console.log(this._likes);
     this._cardLikes.textContent = this._likes.length;
     this._loadingLikeCheck(this._likes, this._likeButton);
 
     if (this._userId != this._userCardOwnerId) {
-      this._deleteButton.remove();
+      this._cardDeleteButton.remove();
     }
 
     this._setEventListeners();

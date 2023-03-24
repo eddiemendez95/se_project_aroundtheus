@@ -12,8 +12,8 @@
 //   });
 
 export default class Api {
-  constructor({ baseurl, headers }) {
-    this._baseUrl = baseurl;
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl;
     this._headers = headers;
   }
 
@@ -25,21 +25,25 @@ export default class Api {
   }
 
   getUserInfo() {
-    return fetch("${this._baseUrl}/users/me", {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: this._headers,
     }).then(this._checkResponse);
   }
 
   getInitialCards() {
-    return fetch("${this._baseUrl}/cards", {
+    return fetch(`${this._baseUrl}/cards`, {
       method: "GET",
       headers: this._headers,
     }).then(this._checkResponse);
   }
 
+  getAPIInfo() {
+    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
+  }
+
   updateUserInfo(name, about) {
-    return fetch("${this._baseUrl}/users/me", {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
@@ -50,7 +54,7 @@ export default class Api {
   }
 
   addNewCard(name, link) {
-    return fetch("${this._baseUrl}/cards", {
+    return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
@@ -61,28 +65,28 @@ export default class Api {
   }
 
   deleteUserCard(cardId) {
-    return fetch("${this._baseUrl}/cards/cardId", {
+    return fetch(`${this._baseUrl}/cards/cardId`, {
       method: "DELETE",
       headers: this._headers,
     }).then(this._checkResponse);
   }
 
   addLikes(cardId) {
-    return fetch("${this._baseUrl}/cardd/likes/cardId", {
+    return fetch(`${this._baseUrl}/cardd/likes/cardId`, {
       method: "PUT",
       headers: this_headers,
     }).then(this._checkResponse);
   }
 
   deleteLikes(cardId) {
-    return fetch("${this._baseurl}/cards/likes/cardId", {
+    return fetch(`${this._baseurl}/cards/likes/cardId`, {
       method: "DELETE",
       headers: this._headers,
     }).then(this._checkResponse);
   }
 
   updateProfileAvatar(avatar) {
-    return fetch("${this._baseUrl}/me/avatar", {
+    return fetch(`${this._baseUrl}/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify(avatar),

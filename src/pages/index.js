@@ -45,15 +45,10 @@ const addFormValidation = new FormValidator(config, addCardModal);
 const editFormPopup = new PopupWithForm("#edit-modal", submitEditProfile);
 const addFormPopup = new PopupWithForm("#add-card-modal", submitAddCard);
 const imagePopup = new PopupImage("#preview-image-modal", handleImageClick);
-const deleteCardConfirm = new PopupWithConfirm("#previewModal");
+const deleteCardConfirm = new PopupWithConfirm("#delete-confirm-modal");
 
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: renderCard,
-  },
-  cardListElement
-);
+let userId;
+let cardSection;
 
 //
 //
@@ -66,8 +61,6 @@ editFormPopup.setEventListeners();
 addFormPopup.setEventListeners();
 imagePopup.setEventListeners();
 deleteCardConfirm.setEventListeners();
-
-section.renderItems();
 
 //
 //    Event Listeners
@@ -106,30 +99,95 @@ function submitAddCard(inputValues) {
   renderCard({ name: inputValues.place, link: inputValues.url });
 }
 
-function renderCard(cardData) {
+api
+  .getAPIInfo()
+  .then(([userData, userCards]) => {
+    userId = userData._id;
+    userInfo.setUserInfo(userData);
+    cardSection = new Section(
+      {
+        items: userCards,
+        renderer: (cardData) => {
+          const newCard = createCard(cardData);
+          cardSection.addItem(newCard.renderCard());
+        },
+      },
+      ".cards__list"
+    );
+    cardSection.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+// function renderCard(cardData) {
+//   const card = new Card(
+//     cardData,
+//     "#card-template",
+//     handleImageClick
+//   ).renderCard();
+//   section.addItem(card);
+// }
+
+function createCard(cardData) {
   const card = new Card(
     cardData,
+    userId,
     "#card-template",
-    handleImageClick
-  ).renderCard();
-  section.addItem(card);
+    //handleCardClick
+    (cardName, cardLink) => {
+      previewPopup.open(cardName, cardLink);
+    },
+    //handleDeleteClick with callback function to remove specified user card only
+    (cardId) => {
+      deleteCardConfirm.open();
+      deleteCardConfirm.setSubmitAction(() => {
+        api
+          .deleteUserCard(cardId)
+          .then(() => {
+            card.deleteCard();
+            deleteCardConfirm.close();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+    },
+    (cardId) => {
+      if (card.checkCardLikedState()) {
+        api
+          .removeCardLikes(cardId)
+          .then((data) => {
+            card.removeCardLike();
+            card.setLikesCounter(data.likes.length);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        api
+          .addCardLikes(cardId)
+          .then((data) => {
+            card.addCardLike();
+            card.setLikesCounter(data.likes.length);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    //loadingLikeCheck - loops through cards and renders server likes on page
+    (cardData) => {
+      cardData.forEach((cardObj) => {
+        if (cardObj._id === userId) {
+          card.addCardLike();
+        }
+      });
+    }
+  );
+  return card;
 }
 
 function handleImageClick(name, link) {
   imagePopup.open(name, link);
 }
-
-// (cardId) => {
-//   deleteCardPopup.open();
-//   deleteCardPopup.setSubmitAction(() => {
-//     api
-//       .deleteUserCard(cardId)
-//       .then(() => {
-//         card.deleteCard();
-//         deleteCardPopup.close();
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   });
-// },
