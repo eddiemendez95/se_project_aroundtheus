@@ -2,7 +2,7 @@ class Section {
   constructor({ items, renderer }, cardsList) {
     this._items = items;
     this._renderer = renderer;
-    this._cardsList = cardsList;
+    this._cardsList = document.querySelector(cardsList);
   }
 
   renderItems() {
@@ -10,8 +10,7 @@ class Section {
   }
 
   addItem(item) {
-    const newItem = this._renderer(item);
-    this._cardsList.prepend(newItem);
+    this._cardsList.prepend(item);
   }
 }
 

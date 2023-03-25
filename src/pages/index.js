@@ -154,7 +154,7 @@ function createCard(cardData) {
       });
     },
     (cardId) => {
-      if (card.checkCardLikedState()) {
+      if (card.checkLikeButtonState()) {
         api
           .removeCardLikes(cardId)
           .then((data) => {
