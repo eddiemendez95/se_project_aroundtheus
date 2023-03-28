@@ -43,7 +43,7 @@ const userInfo = new UserInfo({
 const editFormValidation = new FormValidator(config, editProfileModal);
 const addFormValidation = new FormValidator(config, addCardModal);
 const editFormPopup = new PopupWithForm("#edit-modal", submitEditProfile);
-const addFormPopup = new PopupWithForm("#add-card-modal", submitAddCard);
+// const addFormPopup = new PopupWithForm("#add-card-modal", submitAddCard);
 const imagePopup = new PopupImage("#preview-image-modal", handleImageClick);
 const deleteCardConfirm = new PopupWithConfirm("#delete-confirm-modal");
 
@@ -58,7 +58,6 @@ editFormValidation.enableValidation();
 addFormValidation.enableValidation();
 
 editFormPopup.setEventListeners();
-addFormPopup.setEventListeners();
 imagePopup.setEventListeners();
 deleteCardConfirm.setEventListeners();
 
@@ -72,7 +71,7 @@ openEditModalButton.addEventListener("click", () => {
 
 addNewCardButton.addEventListener("click", () => {
   addFormValidation.resetValidation();
-  addFormPopup.open();
+  addCardPopup.open();
 });
 
 //
@@ -95,9 +94,16 @@ function submitEditProfile(inputValues) {
   });
 }
 
-function submitAddCard(inputValues) {
-  renderCard({ name: inputValues.place, link: inputValues.url });
-}
+// function submitAddCard(inputValues) {
+//   renderCard({ name: inputValues.place, link: inputValues.url });
+// }
+
+// function submitAddCard({ name, link }) {
+//   return api.addNewCard(name, link).then((res) => {
+//     renderCard(res, cardListEl);
+//     addCardPopup.close();
+//   });
+// }
 
 api
   .getAPIInfo()
@@ -129,6 +135,25 @@ api
 //   section.addItem(card);
 // }
 
+const addCardPopup = new PopupWithForm("#add-card-modal", (values) => {
+  addCardPopup.isLoadingButtonState(true);
+  api
+    .addNewCard(values)
+    .then((data) => {
+      const addCard = createCard(data);
+      addCardPopup.close();
+      cardSection.addItem(addCard.renderCard());
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      addCardPopup.isLoadingButtonState(false, "Create");
+    });
+});
+
+addCardPopup.setEventListeners();
+
 function createCard(cardData) {
   const card = new Card(
     cardData,
@@ -136,7 +161,7 @@ function createCard(cardData) {
     "#card-template",
     //handleCardClick
     (cardName, cardLink) => {
-      previewPopup.open(cardName, cardLink);
+      addCardPopup.open(cardName, cardLink);
     },
     //handleDeleteClick with callback function to remove specified user card only
     (cardId) => {
@@ -191,3 +216,5 @@ function createCard(cardData) {
 function handleImageClick(name, link) {
   imagePopup.open(name, link);
 }
+
+// const addFormPopup = new PopupWithForm("#add-card-modal", submitAddCard);
