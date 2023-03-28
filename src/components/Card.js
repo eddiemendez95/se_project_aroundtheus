@@ -31,9 +31,9 @@ class Card {
   }
 
   _setEventListeners() {
-    this._cardImage.addEventListener("click", () =>
-      this._handleImageClick(this._name, this._link)
-    );
+    this._cardImage.addEventListener("click", () => {
+      this._openImageModal();
+    });
     this._cardDeleteButton.addEventListener("click", this._handleDeleteCard);
     this._likeButton.addEventListener("click", this.handleLikeClick);
   }
@@ -60,7 +60,7 @@ class Card {
   }
 
   checkLikeButtonState() {
-    if (this._likeButton.contains("card__like-button_active")) {
+    if (this._likeButton.classList.contains("card__like-button_active")) {
       return true;
     } else {
       return false;
@@ -83,13 +83,12 @@ class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     cardTitle.textContent = this._name;
-    console.log(this._likes);
     this._cardLikes.textContent = this._likes.length;
     this._loadingLikeCheck(this._likes, this._likeButton);
 
-    if (this._userId != this._userCardOwnerId) {
-      this._cardDeleteButton.remove();
-    }
+    // if (this._userId != this._userCardOwnerId) {
+    //   this._cardDeleteButton.remove();
+    // }
 
     this._setEventListeners();
 

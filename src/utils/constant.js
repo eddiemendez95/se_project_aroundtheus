@@ -55,3 +55,9 @@ export const profileDescriptionInput =
 export const cardTitleInput = addCardForm.querySelector(".modal__input_place");
 export const cardUrlInput = addCardForm.querySelector(".modal__input_url");
 export const cardListElement = document.querySelector(".cards__list");
+
+export const avatarEditModal = document.querySelector(
+  "#profileimage-edit-modal"
+);
+export const profileAvatar = document.querySelector(".profile__image");
+export const avatarButton = document.querySelector(".profile__image-edit");

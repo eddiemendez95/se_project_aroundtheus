@@ -78,6 +78,27 @@
   margin-right: 24px;
 }
 
+.profile__image-edit {
+  background: transparent url(../images/Edit.svg) center no-repeat;
+  position: absolute;
+  height: 26px;
+  width: 26px;
+  cursor: pointer;
+  border: none;
+  top: 80px;
+  left: 47px;
+  visibility: hidden;
+}
+
+.profile__image-container:hover {
+  opacity: 0.8;
+}
+
+.profile__image-container:hover .profile__image-edit {
+  visibility: visible;
+  transition: opacity 0.3s linear;
+}
+
 @media screen and (max-width: 900px) {
   .profile {
     display: flex;

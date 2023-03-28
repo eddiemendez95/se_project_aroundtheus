@@ -21,6 +21,9 @@ import {
   cardTitleInput,
   cardUrlInput,
   cardListElement,
+  avatarEditModal,
+  profileAvatar,
+  avatarButton,
 } from "../utils/constant.js";
 
 //
@@ -87,7 +90,6 @@ function openProfileEditForm() {
 }
 
 function submitEditProfile(inputValues) {
-  console.log(inputValues);
   userInfo.setUserInfo({
     name: inputValues.title,
     job: inputValues.description,
@@ -134,6 +136,26 @@ const addCardPopup = new PopupWithForm("#add-card-modal", (values) => {
 
 addCardPopup.setEventListeners();
 
+const avatarPopup = new PopupWithForm("#profileimage-edit-modal", (values) => {
+  avatarPopup.isLoadingButtonState(true);
+  api
+    .updateProfileAvatar(values.avatar) //avatar url returned
+    .then((data) => {
+      userinfo.setUserInfo(data); //updates link, does not render link on page
+      avatarPopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      avatarPopup.isLoadingButtonState(false, "Save");
+    });
+});
+
+avatarButton.addEventListener("click", () => avatarPopup.open());
+
+avatarPopup.setEventListeners();
+
 function createCard(cardData) {
   const card = new Card(
     cardData,
@@ -141,7 +163,7 @@ function createCard(cardData) {
     "#card-template",
     //handleCardClick
     (cardName, cardLink) => {
-      addCardPopup.open(cardName, cardLink);
+      imagePopup.open(cardName, cardLink);
     },
     //handleDeleteClick with callback function to remove specified user card only
     (cardId) => {
@@ -161,7 +183,7 @@ function createCard(cardData) {
     (cardId) => {
       if (card.checkLikeButtonState()) {
         api
-          .removeCardLikes(cardId)
+          .deleteLikes(cardId)
           .then((data) => {
             card.removeCardLike();
             card.setLikesCounter(data.likes.length);
@@ -171,7 +193,7 @@ function createCard(cardData) {
           });
       } else {
         api
-          .addCardLikes(cardId)
+          .addLikes(cardId)
           .then((data) => {
             card.addCardLike();
             card.setLikesCounter(data.likes.length);

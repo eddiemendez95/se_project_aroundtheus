@@ -69,9 +69,9 @@ export default class Api {
   }
 
   addLikes(cardId) {
-    return fetch(`${this._baseUrl}/cardd/likes/cardId`, {
+    return fetch(`${this._baseUrl}/cards/likes/cardId`, {
       method: "PUT",
-      headers: this_headers,
+      headers: this._headers,
     }).then(this._checkResponse);
   }
 
@@ -86,7 +86,7 @@ export default class Api {
     return fetch(`${this._baseUrl}/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify(avatar),
+      body: JSON.stringify({ avatar }),
     }).then(this._checkResponse);
   }
 }
