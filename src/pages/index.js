@@ -94,17 +94,6 @@ function submitEditProfile(inputValues) {
   });
 }
 
-// function submitAddCard(inputValues) {
-//   renderCard({ name: inputValues.place, link: inputValues.url });
-// }
-
-// function submitAddCard({ name, link }) {
-//   return api.addNewCard(name, link).then((res) => {
-//     renderCard(res, cardListEl);
-//     addCardPopup.close();
-//   });
-// }
-
 api
   .getAPIInfo()
   .then(([userData, userCards]) => {
@@ -125,15 +114,6 @@ api
   .catch((err) => {
     console.log(err);
   });
-
-// function renderCard(cardData) {
-//   const card = new Card(
-//     cardData,
-//     "#card-template",
-//     handleImageClick
-//   ).renderCard();
-//   section.addItem(card);
-// }
 
 const addCardPopup = new PopupWithForm("#add-card-modal", (values) => {
   addCardPopup.isLoadingButtonState(true);
@@ -216,5 +196,3 @@ function createCard(cardData) {
 function handleImageClick(name, link) {
   imagePopup.open(name, link);
 }
-
-// const addFormPopup = new PopupWithForm("#add-card-modal", submitAddCard);
