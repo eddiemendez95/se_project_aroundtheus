@@ -41,6 +41,7 @@ const api = new Api({
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
   jobSelector: ".profile__description",
+  userAvatar: ".profile__image",
 });
 
 const editFormValidation = new FormValidator(config, editProfileModal);
@@ -99,9 +100,10 @@ function submitEditProfile(inputValues) {
 
 api
   .getAPIInfo()
-  .then(([userData, userCards]) => {
+  .then(([userData, userCards, avatar]) => {
     userId = userData._id;
-    userInfo.setUserInfo(userData);
+    userInfo.setUserInfo(userData, avatar);
+    // userInfo.setAvatar(avatar);
     cardSection = new Section(
       {
         items: userCards,
@@ -142,8 +144,8 @@ const avatarPopup = new PopupWithForm("#profileimage-edit-modal", (values) => {
   api
     .updateProfileAvatar(values.avatar) //avatar url returned
     .then(({ name, job }) => {
-      userInfo.setUserInfo({ name, job });
-      userInfo.setAvatar(avatar); //updates link, does not render link on page
+      userInfo.setUserInfo({ name, job, avatar });
+      // userInfo.setAvatar(avatar); //updates link, does not render link on page
       avatarPopup.close();
     })
     .catch((err) => {
@@ -171,6 +173,7 @@ function createCard(cardData) {
     (cardId) => {
       deleteCardConfirm.open();
       deleteCardConfirm.setSubmitAction(() => {
+        avatarPopup.renderLoading(true);
         api
           .deleteUserCard(cardId)
           .then(() => {

@@ -57,15 +57,11 @@ class Card {
   }
 
   isLiked() {
-    if (this._likes.some((like) => like._id === this._userId)) {
-      return true;
-    } else {
-      return false;
-    }
+    return this._likes.some((like) => like._id === this._userId);
   }
 
   _renderLikes() {
-    this.setLikesCounter = this._likes.length;
+    this.setLikesCounter.textContent = this._likes.length;
 
     if (this.isLiked()) {
       this._likeButton.classList.add("card__like-button_active");
