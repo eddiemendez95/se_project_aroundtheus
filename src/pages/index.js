@@ -94,6 +94,7 @@ function submitEditProfile(inputValues) {
     name: inputValues.title,
     job: inputValues.description,
   });
+  editFormPopup.close();
 }
 
 api
@@ -118,37 +119,38 @@ api
   });
 
 const addCardPopup = new PopupWithForm("#add-card-modal", (values) => {
-  addCardPopup.isLoadingButtonState(true);
+  addCardPopup.renderLoading(true);
   api
     .addNewCard(values)
     .then((data) => {
-      const addCard = createCard(data);
+      const card = createCard(data);
       addCardPopup.close();
-      cardSection.addItem(addCard.renderCard());
+      cardSection.addItem(card.renderCard());
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      addCardPopup.isLoadingButtonState(false, "Create");
+      addCardPopup.renderLoading(false, "Create");
     });
 });
 
 addCardPopup.setEventListeners();
 
 const avatarPopup = new PopupWithForm("#profileimage-edit-modal", (values) => {
-  avatarPopup.isLoadingButtonState(true);
+  avatarPopup.renderLoading(true);
   api
     .updateProfileAvatar(values.avatar) //avatar url returned
-    .then((data) => {
-      userinfo.setUserInfo(data); //updates link, does not render link on page
+    .then(({ name, job }) => {
+      userInfo.setUserInfo({ name, job });
+      userInfo.setAvatar(avatar); //updates link, does not render link on page
       avatarPopup.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      avatarPopup.isLoadingButtonState(false, "Save");
+      avatarPopup.renderLoading(false, "Save");
     });
 });
 
@@ -157,7 +159,7 @@ avatarButton.addEventListener("click", () => avatarPopup.open());
 avatarPopup.setEventListeners();
 
 function createCard(cardData) {
-  const card = new Card(
+  const cardElement = new Card(
     cardData,
     userId,
     "#card-template",
@@ -172,21 +174,23 @@ function createCard(cardData) {
         api
           .deleteUserCard(cardId)
           .then(() => {
-            card.deleteCard();
+            cardElement.deleteCard();
             deleteCardConfirm.close();
           })
           .catch((err) => {
             console.log(err);
+          })
+          .finally(() => {
+            deleteCardConfirm.renderLoading(false, "Save");
           });
       });
     },
     (cardId) => {
-      if (card.checkLikeButtonState()) {
+      if (cardElement.isLiked()) {
         api
           .deleteLikes(cardId)
-          .then((data) => {
-            card.removeCardLike();
-            card.setLikesCounter(data.likes.length);
+          .then((res) => {
+            cardElement.updateLikes(res.likes);
           })
           .catch((err) => {
             console.log(err);
@@ -194,25 +198,16 @@ function createCard(cardData) {
       } else {
         api
           .addLikes(cardId)
-          .then((data) => {
-            card.addCardLike();
-            card.setLikesCounter(data.likes.length);
+          .then((res) => {
+            cardElement.updateLikes(res.likes);
           })
           .catch((err) => {
             console.log(err);
           });
       }
-    },
-    //loadingLikeCheck - loops through cards and renders server likes on page
-    (cardData) => {
-      cardData.forEach((cardObj) => {
-        if (cardObj._id === userId) {
-          card.addCardLike();
-        }
-      });
     }
   );
-  return card;
+  return cardElement;
 }
 
 function handleImageClick(name, link) {
