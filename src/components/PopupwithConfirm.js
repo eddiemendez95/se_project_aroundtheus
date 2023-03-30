@@ -5,6 +5,7 @@ class PopupWithConfirm extends Popup {
     super({ popupSelector });
     this._popupForm = this._popup.querySelector("#delete-confirm-form");
     this._confirmButton = document.querySelector(".modal__button-confirm");
+    this._saveButton = this._popupForm.querySelector(".modal__button");
   }
 
   setSubmitAction(action) {
@@ -16,6 +17,14 @@ class PopupWithConfirm extends Popup {
     this._confirmButton.addEventListener("click", () => {
       this._handleSubmit();
     });
+  }
+
+  renderLoading(isLoading, saveButtonText) {
+    if (isLoading) {
+      this._saveButton.textContent = "Saving...";
+    } else {
+      this._saveButton.textContent = saveButtonText;
+    }
   }
 }
 
