@@ -34,7 +34,7 @@ class PopupWithForm extends Popup {
     });
   }
 
-  renderLoading(isLoading, saveButtonText) {
+  isLoadingButtonState(isLoading, saveButtonText) {
     if (isLoading) {
       this._saveButton.textContent = "Saving...";
     } else {

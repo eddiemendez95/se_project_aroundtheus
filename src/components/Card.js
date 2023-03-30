@@ -18,7 +18,7 @@ class Card {
     this._handleLikeClick = handleLikeClick;
     this._handleDeleteCard = handleDeleteCard;
     this._loadingLikeCheck = loadingLikeCheck;
-    this._userCardOwnerId = this._id;
+    this._userCardOwnerId = data.owner._id;
   }
 
   _getTemplate() {
@@ -34,7 +34,9 @@ class Card {
     this._cardImage.addEventListener("click", () => {
       this._openImageModal();
     });
-    this._cardDeleteButton.addEventListener("click", this._handleDeleteCard);
+    this._cardDeleteButton.addEventListener("click", () => {
+      this.deleteCard();
+    });
     this._likeButton.addEventListener("click", this.handleLikeClick);
   }
 
@@ -61,7 +63,7 @@ class Card {
   }
 
   _renderLikes() {
-    this.setLikesCounter.textContent = this._likes.length;
+    this._cardLikes.textContent = this._likes.length;
 
     if (this.isLiked()) {
       this._likeButton.classList.add("card__like-button_active");

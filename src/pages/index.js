@@ -46,8 +46,8 @@ const userInfo = new UserInfo({
 
 const editFormValidation = new FormValidator(config, editProfileModal);
 const addFormValidation = new FormValidator(config, addCardModal);
+const avatarFormValidation = new FormValidator(config, avatarEditModal);
 const editFormPopup = new PopupWithForm("#edit-modal", submitEditProfile);
-// const addFormPopup = new PopupWithForm("#add-card-modal", submitAddCard);
 const imagePopup = new PopupImage("#preview-image-modal", handleImageClick);
 const deleteCardConfirm = new PopupWithConfirm("#delete-confirm-modal");
 
@@ -60,7 +60,7 @@ let cardSection;
 
 editFormValidation.enableValidation();
 addFormValidation.enableValidation();
-
+avatarFormValidation.enableValidation();
 editFormPopup.setEventListeners();
 imagePopup.setEventListeners();
 deleteCardConfirm.setEventListeners();
@@ -85,17 +85,36 @@ addNewCardButton.addEventListener("click", () => {
 function openProfileEditForm() {
   const profileInfo = userInfo.getUserInfo();
   profileTitleInput.value = profileInfo.name;
-  profileDescriptionInput.value = profileInfo.job;
+  profileDescriptionInput.value = profileInfo.about;
   editFormValidation.resetValidation();
   editFormPopup.open();
 }
 
+// function submitEditProfile(value) {
+//   userInfo.setUserInfo({
+//     name: value.name,
+//     job: value.about,
+//   });
+//   editFormPopup.close();
+// }
+
 function submitEditProfile(inputValues) {
-  userInfo.setUserInfo({
-    name: inputValues.title,
-    job: inputValues.description,
-  });
-  editFormPopup.close();
+  editFormPopup.renderLoading(true);
+  return api
+    .updateUserInfo(inputValues.name, inputValues.about)
+    .then(() => {
+      userInfo.setUserInfo({
+        name: inputValues.name,
+        about: inputValues.about,
+      });
+      editFormPopup.close();
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      editFormPopup.renderLoading(false, "Save");
+    });
 }
 
 api
@@ -140,19 +159,19 @@ const addCardPopup = new PopupWithForm("#add-card-modal", (values) => {
 addCardPopup.setEventListeners();
 
 const avatarPopup = new PopupWithForm("#profileimage-edit-modal", (values) => {
-  avatarPopup.renderLoading(true);
+  avatarPopup.isLoadingButtonState(true);
   api
-    .updateProfileAvatar(values.avatar) //avatar url returned
+    .updateProfileAvatar(values.avatar)
     .then(({ name, job }) => {
       userInfo.setUserInfo({ name, job });
-      userInfo.setAvatar(avatar); //updates link, does not render link on page
+      userInfo.setAvatar(values.avatar);
       avatarPopup.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      avatarPopup.renderLoading(false, "Save");
+      avatarPopup.isLoadingButtonState(false, "Save");
     });
 });
 
@@ -165,11 +184,9 @@ function createCard(cardData) {
     cardData,
     userId,
     "#card-template",
-    //handleCardClick
     (cardName, cardLink) => {
       imagePopup.open(cardName, cardLink);
     },
-    //handleDeleteClick with callback function to remove specified user card only
     (cardId) => {
       deleteCardConfirm.open();
       deleteCardConfirm.setSubmitAction(() => {

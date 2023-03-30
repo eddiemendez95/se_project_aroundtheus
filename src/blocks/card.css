@@ -36,6 +36,7 @@
   width: 21px;
   height: 18px;
   border: none;
+  display: flex;
 }
 
 .card__like-button_active {
@@ -57,4 +58,11 @@
 .card__like-button:hover {
   opacity: 0.6;
   cursor: pointer;
+}
+
+.card__likes-counter {
+  margin: 0;
+  font-size: 13px;
+  line-height: 13px;
+  align-self: center;
 }
