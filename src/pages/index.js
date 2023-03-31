@@ -100,12 +100,13 @@ function openProfileEditForm() {
 
 function submitEditProfile(inputValues) {
   editFormPopup.isLoadingButtonState(true);
+  console.log(inputValues);
   return api
-    .updateUserInfo(inputValues.title, inputValues.subtitle)
+    .updateUserInfo(inputValues.title, inputValues.about)
     .then(() => {
       userInfo.setUserInfo({
         name: inputValues.title,
-        about: inputValues.subtitle,
+        about: inputValues.about,
       });
       editFormPopup.close();
     })
@@ -119,10 +120,10 @@ function submitEditProfile(inputValues) {
 
 api
   .getAPIInfo()
-  .then(([userData, userCards, avatar]) => {
+  .then(([userData, userCards]) => {
     userId = userData._id;
     userInfo.setUserInfo(userData);
-    userInfo.getAvatar(avatar);
+    userInfo.setAvatar(userData);
     cardSection = new Section(
       {
         items: userCards,
@@ -190,7 +191,7 @@ function createCard(cardData) {
     (cardId) => {
       deleteCardConfirm.open();
       deleteCardConfirm.setSubmitAction(() => {
-        deleteCardConfirm.renderLoading(true);
+        deleteCardConfirm.isLoadingButtonState(true);
         api
           .deleteUserCard(cardId)
           .then(() => {
@@ -201,7 +202,7 @@ function createCard(cardData) {
             console.log(err);
           })
           .finally(() => {
-            deleteCardConfirm.renderLoading(false, "Save");
+            deleteCardConfirm.isLoadingButtonState(false, "Save");
           });
       });
     },

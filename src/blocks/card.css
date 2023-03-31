@@ -61,8 +61,12 @@
 }
 
 .card__likes-counter {
-  margin: 0;
+  position: absolute;
+  font-family: "Inter", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
   font-size: 13px;
-  line-height: 13px;
-  align-self: center;
+  line-height: 1.2;
+  margin: 40px 0 0px 228px;
+  padding: 0px;
 }
