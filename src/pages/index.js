@@ -99,21 +99,21 @@ function openProfileEditForm() {
 // }
 
 function submitEditProfile(inputValues) {
-  editFormPopup.renderLoading(true);
+  editFormPopup.isLoadingButtonState(true);
   return api
-    .updateUserInfo(inputValues.name, inputValues.about)
+    .updateUserInfo(inputValues.title, inputValues.subtitle)
     .then(() => {
       userInfo.setUserInfo({
-        name: inputValues.name,
-        about: inputValues.about,
+        name: inputValues.title,
+        about: inputValues.subtitle,
       });
       editFormPopup.close();
     })
-    .catch((error) => {
-      console.log(error);
+    .catch((err) => {
+      console.log(err);
     })
     .finally(() => {
-      editFormPopup.renderLoading(false, "Save");
+      editFormPopup.isLoadingButtonState(false, "Save");
     });
 }
 
@@ -140,7 +140,7 @@ api
   });
 
 const addCardPopup = new PopupWithForm("#add-card-modal", (values) => {
-  addCardPopup.renderLoading(true);
+  addCardPopup.isLoadingButtonState(true);
   api
     .addNewCard(values)
     .then((data) => {
@@ -152,7 +152,7 @@ const addCardPopup = new PopupWithForm("#add-card-modal", (values) => {
       console.log(err);
     })
     .finally(() => {
-      addCardPopup.renderLoading(false, "Create");
+      addCardPopup.isLoadingButtonState(false, "Create");
     });
 });
 
