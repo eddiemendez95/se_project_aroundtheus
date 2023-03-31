@@ -162,9 +162,9 @@ const avatarPopup = new PopupWithForm("#profileimage-edit-modal", (values) => {
   avatarPopup.isLoadingButtonState(true);
   api
     .updateProfileAvatar(values.avatar)
-    .then(({ name, job }) => {
-      userInfo.setUserInfo({ name, job });
-      userInfo.setAvatar(values.avatar);
+    .then((response) => {
+      userInfo.setUserInfo(response);
+      userInfo.setAvatar(response);
       avatarPopup.close();
     })
     .catch((err) => {
