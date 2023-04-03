@@ -1,13 +1,13 @@
 class Card {
-  constructor(
+  constructor({
     data,
     userId,
     cardTemplate,
     handleImageClick,
     handleLikeClick,
     handleDeleteClick,
-    loadingLikeCheck
-  ) {
+    loadingLikeCheck,
+  }) {
     this._id = data._id;
     this._userId = userId;
     this._name = data.name;
@@ -15,8 +15,8 @@ class Card {
     this._likes = data.likes;
     this._cardTemplate = cardTemplate;
     this._handleImageClick = handleImageClick;
-    this._handleLikeClick = handleLikeClick;
     this._handleDeleteClick = handleDeleteClick;
+    this._handleLikeClick = handleLikeClick;
     this._loadingLikeCheck = loadingLikeCheck;
     this._userCardOwnerId = data.owner._id;
   }

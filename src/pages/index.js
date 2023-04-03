@@ -172,14 +172,14 @@ avatarButton.addEventListener("click", () => avatarPopup.open());
 avatarPopup.setEventListeners();
 
 function createCard(cardData) {
-  const cardElement = new Card(
-    cardData,
+  const cardElement = new Card({
+    data: cardData,
     userId,
-    "#card-template",
-    (cardName, cardLink) => {
+    cardTemplate: "#card-template",
+    handleImageClick: (cardName, cardLink) => {
       imagePopup.open(cardName, cardLink);
     },
-    (cardId) => {
+    handleDeleteClick: (cardId) => {
       deleteCardConfirm.open();
       deleteCardConfirm.setSubmitAction(() => {
         deleteCardConfirm.renderLoading(true);
@@ -197,7 +197,7 @@ function createCard(cardData) {
           });
       });
     },
-    (cardId) => {
+    handleLikeClick: (cardId) => {
       if (cardElement.isLiked()) {
         api
           .deleteLikes(cardId)
@@ -217,8 +217,8 @@ function createCard(cardData) {
             console.log(err);
           });
       }
-    }
-  );
+    },
+  });
   return cardElement;
 }
 
