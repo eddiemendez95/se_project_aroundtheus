@@ -17,6 +17,9 @@ class PopupWithConfirm extends Popup {
     this._confirmButton.addEventListener("click", () => {
       this._handleSubmit();
     });
+    this._popupForm.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+    });
   }
 
   renderLoading(isLoading, saveButtonText) {

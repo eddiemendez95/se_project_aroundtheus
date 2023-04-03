@@ -5,7 +5,7 @@ class Card {
     cardTemplate,
     handleImageClick,
     handleLikeClick,
-    handleDeleteCard,
+    handleDeleteClick,
     loadingLikeCheck
   ) {
     this._id = data._id;
@@ -16,7 +16,7 @@ class Card {
     this._cardTemplate = cardTemplate;
     this._handleImageClick = handleImageClick;
     this._handleLikeClick = handleLikeClick;
-    this._handleDeleteCard = handleDeleteCard;
+    this._handleDeleteClick = handleDeleteClick;
     this._loadingLikeCheck = loadingLikeCheck;
     this._userCardOwnerId = data.owner._id;
   }
@@ -35,9 +35,11 @@ class Card {
       this._openImageModal();
     });
     this._cardDeleteButton.addEventListener("click", () => {
-      this.deleteCard();
+      this._handleDeleteClick(this._id);
     });
-    this._likeButton.addEventListener("click", this.handleLikeClick);
+    this._likeButton.addEventListener("click", () => {
+      this._handleLikeClick(this._id);
+    });
   }
 
   _openImageModal() {

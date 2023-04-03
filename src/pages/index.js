@@ -90,17 +90,8 @@ function openProfileEditForm() {
   editFormPopup.open();
 }
 
-// function submitEditProfile(value) {
-//   userInfo.setUserInfo({
-//     name: value.name,
-//     job: value.about,
-//   });
-//   editFormPopup.close();
-// }
-
 function submitEditProfile(inputValues) {
-  editFormPopup.isLoadingButtonState(true);
-  console.log(inputValues);
+  editFormPopup.renderLoading(true);
   return api
     .updateUserInfo(inputValues.title, inputValues.about)
     .then(() => {
@@ -114,7 +105,7 @@ function submitEditProfile(inputValues) {
       console.log(err);
     })
     .finally(() => {
-      editFormPopup.isLoadingButtonState(false, "Save");
+      editFormPopup.renderLoading(false, "Save");
     });
 }
 
@@ -141,7 +132,7 @@ api
   });
 
 const addCardPopup = new PopupWithForm("#add-card-modal", (values) => {
-  addCardPopup.isLoadingButtonState(true);
+  addCardPopup.renderLoading(true);
   api
     .addNewCard(values)
     .then((data) => {
@@ -153,14 +144,14 @@ const addCardPopup = new PopupWithForm("#add-card-modal", (values) => {
       console.log(err);
     })
     .finally(() => {
-      addCardPopup.isLoadingButtonState(false, "Create");
+      addCardPopup.renderLoading(false, "Create");
     });
 });
 
 addCardPopup.setEventListeners();
 
 const avatarPopup = new PopupWithForm("#profileimage-edit-modal", (values) => {
-  avatarPopup.isLoadingButtonState(true);
+  avatarPopup.renderLoading(true);
   api
     .updateProfileAvatar(values.avatar)
     .then((response) => {
@@ -172,7 +163,7 @@ const avatarPopup = new PopupWithForm("#profileimage-edit-modal", (values) => {
       console.log(err);
     })
     .finally(() => {
-      avatarPopup.isLoadingButtonState(false, "Save");
+      avatarPopup.renderLoading(false, "Save");
     });
 });
 
@@ -191,7 +182,7 @@ function createCard(cardData) {
     (cardId) => {
       deleteCardConfirm.open();
       deleteCardConfirm.setSubmitAction(() => {
-        deleteCardConfirm.isLoadingButtonState(true);
+        deleteCardConfirm.renderLoading(true);
         api
           .deleteUserCard(cardId)
           .then(() => {
@@ -202,7 +193,7 @@ function createCard(cardData) {
             console.log(err);
           })
           .finally(() => {
-            deleteCardConfirm.isLoadingButtonState(false, "Save");
+            deleteCardConfirm.renderLoading(false, "Save");
           });
       });
     },
@@ -211,7 +202,7 @@ function createCard(cardData) {
         api
           .deleteLikes(cardId)
           .then((res) => {
-            cardElement.updateLikes(res.likes);
+            cardElement.setLikesCounter(res.likes);
           })
           .catch((err) => {
             console.log(err);
@@ -220,7 +211,7 @@ function createCard(cardData) {
         api
           .addLikes(cardId)
           .then((res) => {
-            cardElement.updateLikes(res.likes);
+            cardElement.setLikesCounter(res.likes);
           })
           .catch((err) => {
             console.log(err);
